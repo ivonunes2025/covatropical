@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Política de Privacidade - Cova Tropical">
+    <Navbar />
+    
+    <main class="legal-page section section--light">
+        <div class="container legal-container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag section-tag--dark">Legal</span>
+                <h2>Política de <em>Privacidade</em></h2>
+            </div>
+            
+            <div class="legal-content" data-aos="fade-up" data-aos-delay="100">
+                <p><strong>Última atualização:</strong> {new Date().toLocaleDateString('pt-PT')}</p>
+                
+                <h3>1. Informação Geral</h3>
+                <p>O Restaurante Cova Tropical respeita a sua privacidade. Esta política descreve como tratamos as informações quando visita o nosso website.</p>
+                
+                <h3>2. Recolha de Dados Pessoais</h3>
+                <p>O nosso website é de natureza meramente informativa. Não recolhemos ativamente, de forma direta, dados pessoais como nomes, e-mails ou números de telefone através de formulários no site.</p>
+                
+                <h3>3. Serviços de Terceiros e Endereços IP (Google Maps)</h3>
+                <p>O nosso site apresenta um mapa interativo fornecido pelo <strong>Google Maps</strong> para ajudar na sua navegação até ao nosso restaurante. Ao carregar esta secção do site, o seu browser estabelece uma ligação direta com os servidores da Google. Consequentemente, o seu endereço IP e metadados de navegação podem ser processados pela Google de acordo com as suas próprias <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Políticas de Privacidade</a>.</p>
+                
+                <h3>4. Cookies</h3>
+                <p>Este website pode utilizar cookies estritamente necessários para o seu funcionamento básico ou originários de integrações de terceiros (como o mapa inserido). Pode configurar o seu browser para recusar estes cookies, mas algumas áreas (como a visualização do mapa) poderão não funcionar corretamente.</p>
+                
+                <h3>5. Ligações a Outros Sites</h3>
+                <p>O nosso site contém links para outras páginas (ex: Facebook, Livro de Reclamações, TRIAVE). Não nos responsabilizamos pelas práticas de privacidade ou pelo conteúdo desses websites externos.</p>
+                
+                <h3>6. Contacto</h3>
+                <p>Se tiver alguma questão sobre a nossa política de privacidade, pode contactar-nos diretamente através do nosso número de telefone disponível na página principal (255 311 063) ou dirigindo-se ao nosso estabelecimento em R. A. Garibaldi 155, Felgueiras.</p>
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+.legal-page {
+    padding-top: 120px;
+    padding-bottom: 100px;
+    min-height: calc(100vh - 200px);
+}
+
+.legal-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.legal-content {
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,.05);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-mid);
+    line-height: 1.8;
+}
+
+.legal-content h3 {
+    font-family: 'Outfit', sans-serif;
+    color: var(--neutral-900);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.legal-content p {
+    margin-bottom: 1.2rem;
+}
+
+.legal-content strong {
+    color: var(--neutral-900);
+}
+
+.legal-content a {
+    color: var(--neutral-900);
+    text-decoration: underline;
+    text-decoration-color: var(--amber);
+    transition: color .2s;
+}
+
+.legal-content a:hover {
+    color: var(--amber);
+}
+
+@media (max-width: 768px) {
+    .legal-content {
+        padding: 2rem 1.5rem;
+    }
+}
+</style>

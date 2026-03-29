@@ -1,0 +1,245 @@
+---
+---
+
+<section class="hero" id="inicio">
+    <div class="hero-bg-texture"></div>
+    <div class="hero-content">
+        <!-- Eyebrow: Aquele mini-título descritivo em cima do título. Surge da esquerda (fade-right)  -->
+        <div class="hero-eyebrow" data-aos="fade-right">
+            <span class="eyebrow-dot"></span>
+            Felgueiras, desde 1990
+        </div>
+        
+        <!-- Título principal enorme: Demora um nadinha mais (delay 100) para criar cadência visual. -->
+        <h1 class="hero-title" data-aos="fade-right" data-aos-delay="100">
+            O Sabor <em>Quente</em><br>da Comida Caseira
+        </h1>
+        
+        <!-- Parágrafo introdutório: Vem logo a seguir ao título -->
+        <p class="hero-desc" data-aos="fade-right" data-aos-delay="200">
+            Bem-vindo ao Cova Tropical — onde a ementa diária é a estrela e
+            cada refeição sabe a casa. Pratos frescos todos os dias, preços que
+            fazem sentido.
+        </p>
+        
+        <!-- Botão Principal e rating de estrelas: Aparecem vindos de baixo para maior distinção -->
+        <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
+            <a href="#menu" class="btn-primary">
+                Ver Ementas da Semana
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <div class="hero-rating">
+                <div class="stars">★★★★<span style="opacity:.4">★</span></div>
+                <span>4.4 · 551 opiniões</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <!-- O bloco principal à direita: Mapa Interativo do Local -->
+        <div class="hero-card-main" data-aos="zoom-in" data-aos-delay="200">
+            <iframe 
+                src="https://maps.google.com/maps?q=R.+A.+Garibaldi+155,+Felgueiras&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+        
+        <!-- Pequenos elementos satélite que também sobem, mas ainda com mais atraso para não atrapalhar a visão principal -->
+        <div class="hero-card-float hero-card-float--1" data-aos="fade-up-right" data-aos-delay="600">
+            <span>🥘</span>
+            <div>
+                <strong>Prato do Dia</strong>
+                <!-- Pequeno selo promocional -->
+                <small>A partir de 5€</small>
+            </div>
+        </div>
+        
+        <div class="hero-card-float hero-card-float--2" data-aos="fade-up-left" data-aos-delay="800">
+            <span>📍</span>
+            <div>
+                <strong>Felgueiras</strong>
+                <!-- Info horária -->
+                <small>Aberto desde 11:30</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.hero {
+    position: relative;
+    background-color: var(--neutral-900);
+    background-image: linear-gradient(rgba(15, 17, 16, 0.75), rgba(15, 17, 16, 0.85)), url('/chefe.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: calc(100vh - 70px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding: 6rem 10% 6rem 10%;
+    overflow: hidden;
+}
+
+.hero-bg-texture {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 70% 80% at 70% 50%, rgba(26,26,26,.35) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(26,26,26,.35) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+    margin-bottom: 1.5rem;
+}
+
+.eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-600);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(1.4); }
+}
+
+.hero-title {
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    letter-spacing: -.02em;
+}
+
+.hero-title em {
+    font-style: italic;
+    color: inherit;
+    position: relative;
+    padding-right: 8px;
+}
+
+.hero-title em::after {
+    content: '.';
+    color: var(--green-600);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.hero-desc {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,.6);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+}
+
+.hero-rating {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    color: rgba(255,255,255,.6);
+    font-size: .9rem;
+}
+
+.stars { color: rgba(255,255,255,.8); font-size: 1.1rem; letter-spacing: 2px; }
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-card-main {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 4/5;
+    background: var(--neutral-900);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden; /* Garante que o mapa não passa das bordas redondas */
+    position: relative;
+}
+
+.hero-card-main iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-card-float {
+    position: absolute;
+    background: #fff;
+    border-radius: 16px;
+    padding: .9rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    box-shadow: var(--shadow-md);
+    font-size: .85rem;
+    animation: float 4s ease-in-out infinite;
+}
+
+.hero-card-float span { font-size: 1.4rem; }
+.hero-card-float strong { display: block; font-weight: 600; color: var(--text); font-size: .85rem; }
+.hero-card-float small { color: var(--text-muted); font-size: .75rem; }
+
+.hero-card-float--1 {
+    bottom: 15%;
+    left: -8%;
+    animation-delay: 0s;
+}
+
+.hero-card-float--2 {
+    top: 12%;
+    right: -6%;
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 900px) {
+    .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 5rem 8%;
+        text-align: center;
+    }
+    .hero-desc { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+    .hero-visual { display: none; }
+}
+
+@media (max-width: 480px) {
+    .hero { padding: 4rem 6%; }
+}
+</style>

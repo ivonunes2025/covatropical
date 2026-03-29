@@ -1,0 +1,109 @@
+---
+---
+
+<div class="stats-bar">
+    <div class="stats-inner">
+        <!-- Estatística 1 -->
+        <div class="stat" data-aos="zoom-in" data-aos-delay="100">
+            <span class="stat-num">551<em>+</em></span>
+            <span class="stat-label">Opiniões Google</span>
+        </div>
+        
+        <!-- Divisor 1 -->
+        <div class="stat-divider" data-aos="fade-in" data-aos-delay="200"></div>
+        
+        <!-- Estatística 2 -->
+        <div class="stat" data-aos="zoom-in" data-aos-delay="300">
+            <span class="stat-num">4<em>.4</em></span>
+            <span class="stat-label">Classificação Média</span>
+        </div>
+        
+        <!-- Divisor 2 -->
+        <div class="stat-divider" data-aos="fade-in" data-aos-delay="400"></div>
+        
+        <!-- Estatística 3 -->
+        <div class="stat" data-aos="zoom-in" data-aos-delay="500">
+            <span class="stat-num">5<em class="c-green">€</em></span>
+            <span class="stat-label">Preço Médio</span>
+        </div>
+        
+        <!-- Divisor 3 -->
+        <div class="stat-divider" data-aos="fade-in" data-aos-delay="600"></div>
+        
+        <!-- Estatística 4 -->
+        <div class="stat" data-aos="zoom-in" data-aos-delay="700">
+            <span class="stat-num">40<em class="c-green">+</em></span>
+            <span class="stat-label">Diárias por Semana</span>
+        </div>
+    </div>
+</div>
+
+<style>
+.stats-bar {
+    background: var(--neutral-900);
+    border-top: 1px solid rgba(255,255,255,.05);
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    padding: 4.5rem 0;
+}
+
+.stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.stat {
+    flex: 1;
+    text-align: center;
+    padding: 1rem 2rem;
+}
+
+.stat-num {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -.02em;
+}
+
+.stat-num em {
+    font-style: normal;
+    color: var(--amber-light);
+}
+
+.stat-num em.c-green {
+    color: var(--green-600);
+}
+
+.stat-label {
+    display: block;
+    color: rgba(255,255,255,.5);
+    font-size: .82rem;
+    margin-top: .35rem;
+    font-weight: 500;
+    letter-spacing: .03em;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 44px;
+    background: rgba(255,255,255,.12);
+    flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+    .stats-inner { flex-wrap: wrap; }
+    .stat { flex: 1 1 40%; }
+    .stat-divider { display: none; }
+}
+
+@media (max-width: 480px) {
+    .stat { flex: 1 1 45%; }
+}
+</style>

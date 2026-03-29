@@ -1,0 +1,212 @@
+---
+---
+
+<div id="preloader" class="preloader">
+    <!-- Texture background -->
+    <div class="preloader-bg"></div>
+    
+    <!-- Top and Bottom subtle borders/decorations -->
+    <div class="preloader-border top"></div>
+    <div class="preloader-border bottom"></div>
+
+    <!-- Floating metadata text on corners -->
+    <div class="preloader-meta meta-tl">Restaurante</div>
+    <div class="preloader-meta meta-tr">Felgueiras, PT</div>
+    
+    <!-- Main Center Content -->
+    <div class="preloader-content">
+        <span class="tree">🌴</span>
+        <span class="text">Cova <em>Tropical</em></span>
+        <span class="subtitle">A tradição à sua mesa desde 1990.</span>
+    </div>
+
+    <!-- Progress loading bar at bottom -->
+    <div class="preloader-progress">
+        <div class="progress-bar"></div>
+    </div>
+</div>
+
+<style>
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: #0a0b0a; /* Fundo extremamente escuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1), visibility 0.8s;
+    overflow: hidden;
+}
+
+/* Background Texture */
+.preloader-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/tropical_pattern.png');
+    background-size: 400px;
+    background-repeat: repeat;
+    opacity: 0.25; /* Opacidade reforçada para que a folhagem verde escura chique se veja */
+    pointer-events: none;
+    z-index: 1;
+    animation: slowPan 40s linear infinite; /* Dá vida geométrica às folhas no fundo */
+}
+
+@keyframes slowPan {
+    0% { background-position: 0 0; }
+    100% { background-position: -400px 400px; }
+}
+
+.preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Meta texts on corners */
+.preloader-meta {
+    position: absolute;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInReveal 1s forwards 0.8s;
+}
+
+.meta-tl { top: 30px; left: 30px; }
+.meta-tr { top: 30px; right: 30px; }
+
+/* Content wrapper */
+.preloader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    z-index: 5;
+}
+
+.tree {
+    font-size: 3.5rem;
+    display: inline-block;
+    transform-origin: bottom center;
+    animation: sway 1.8s ease-in-out infinite alternate;
+}
+
+.text {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    animation: fadeInReveal 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.2s;
+}
+
+.text em {
+    font-style: italic;
+    position: relative;
+    padding-right: 6px;
+}
+
+.text em::after {
+    content: '.';
+    color: var(--green-600, #175e35);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    opacity: 0;
+    animation: fadeInReveal 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.6s;
+    margin-top: -0.5rem;
+}
+
+/* Progress logic */
+.preloader-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    z-index: 10;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--amber, #d46c82); /* Barra bordô a carregar */
+    width: 0%;
+    animation: loadBar 2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+}
+
+@keyframes loadBar {
+    0% { width: 0%; }
+    40% { width: 60%; }
+    100% { width: 100%; }
+}
+
+@keyframes sway {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(12deg); }
+}
+
+@keyframes fadeInReveal {
+    0% { 
+        opacity: 0; 
+        transform: translateY(20px) scale(0.95); 
+        filter: blur(4px);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+        filter: blur(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .meta-tl { top: 20px; left: 20px; }
+    .meta-tr { top: 20px; right: 20px; }
+}
+</style>
+
+<script>
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const preloader = document.getElementById('preloader');
+        // Flag colocada só quando se navega internamente (ex: Voltar ao Menu)
+        const isInternalNav = sessionStorage.getItem('internal_nav');
+        // Consumir a flag imediatamente (one-shot)
+        sessionStorage.removeItem('internal_nav');
+
+        if (isInternalNav) {
+            // Navegação interna — esconder preloader e fazer fade-in
+            if (preloader) preloader.style.display = 'none';
+            document.body.classList.add('page-fade-in');
+        } else {
+            // Abertura normal do site (nova aba, F5, link externo) — mostrar preloader
+            window.scrollTo(0, 0);
+            document.body.style.overflow = 'hidden';
+
+            setTimeout(() => {
+                if (preloader) {
+                    preloader.classList.add('hidden');
+                    setTimeout(() => { document.body.style.overflow = ''; }, 800);
+                }
+            }, 2200);
+        }
+    });
+</script>

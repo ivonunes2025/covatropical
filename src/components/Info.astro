@@ -1,0 +1,155 @@
+---
+
+---
+
+<section id="info" class="section section--light">
+    <div class="container">
+        <!-- Cabeçalho (Header) animado da direita para a esquerda criando dinamismo horizontal -->
+        <div class="section-header" data-aos="fade-right">
+            <span class="section-tag">Venha Visitar-nos</span>
+            <h2>Tudo o que precisa<br /><em>de saber</em></h2>
+        </div>
+
+        <!-- Grelha de Informações: Cada cartão faz zoom-in um a seguir ao outro -->
+        <div class="info-grid">
+            <!-- Info 1: Localização -->
+            <div class="info-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="info-icon">📍</div>
+                <h3>Onde Estamos</h3>
+                <p>
+                    Edifício Palmeira<br />R. A. Garibaldi 155<br />4610-224
+                    Felgueiras
+                </p>
+                <a
+                    href="https://maps.google.com/?q=R.+A.+Garibaldi+155+Felgueiras"
+                    target="_blank"
+                    rel="noopener"
+                    class="info-link"
+                >
+                    Abrir no Google Maps <span style="color: var(--green-600); font-weight: bold;">→</span>
+                </a>
+            </div>
+
+            <!-- Info 2: Horário da Ementa -->
+            <div class="info-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="info-icon">🕐</div>
+                <h3>Horário</h3>
+                <p>Segunda a Sábado<br />A partir das <strong>11:30</strong></p>
+                <p class="info-alert">⚡ Venha cedo — as diárias esgotam!</p>
+            </div>
+
+            <!-- Info 3: Meio de Pagamento -->
+            <div class="info-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="info-icon">💵</div>
+                <h3>Pagamento</h3>
+                <p>
+                    Para manter os nossos preços fantásticos, aceitamos apenas
+                    pagamento em dinheiro.
+                </p>
+            </div>
+
+            <!-- Info 4: Call to Action de chamada -->
+            <div class="info-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="info-icon">📞</div>
+                <h3>Contacto</h3>
+                <p>
+                    Tem alguma questão? Ligue-nos, teremos todo o gosto em
+                    atender.
+                </p>
+                <a href="tel:255311063" class="btn-primary btn-primary--sm">
+                    255 311 063
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.6rem;
+    }
+
+    .info-card {
+        background: var(--white);
+        border: 1px solid rgba(12, 50, 25, 0.07);
+        border-radius: 20px;
+        padding: 2.2rem 1.8rem;
+        box-shadow: var(--shadow-sm);
+        transition:
+            transform 0.35s var(--ease),
+            box-shadow 0.35s var(--ease);
+    }
+
+    .info-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .info-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .info-card h3 {
+        font-size: 1.2rem;
+        color: var(--neutral-900);
+        margin-bottom: 0.7rem;
+        transition: color 0.3s var(--ease);
+    }
+
+    .info-card:hover h3 {
+        color: var(--green-600);
+    }
+
+    .info-card p {
+        font-size: 0.92rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    .info-link {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text);
+        transition: color 0.2s;
+    }
+    
+    .info-link:hover {
+        color: var(--green-600);
+    }
+
+    .info-alert {
+        color: var(--text-mid) !important;
+        font-weight: 600 !important;
+        font-size: 0.88rem !important;
+    }
+
+    .info-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: var(--neutral-100);
+        border: 1px solid var(--neutral-200);
+        color: var(--text-mid);
+        font-weight: 600;
+        font-size: 0.82rem;
+        padding: 0.55rem 1rem;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 1100px) {
+        .info-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

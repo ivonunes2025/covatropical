@@ -1,0 +1,138 @@
+---
+---
+
+<section id="sobre" class="section sobre-section">
+    <div class="container container-relative">
+        <!-- Título da secção animado do topo de baixo para cima. Fade-up é sempre clássico e funciona. -->
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag">Porque Somos Especiais</span>
+            <h2>Mais do que um restaurante,<br><em>é onde Felgueiras almoça</em></h2>
+        </div>
+        
+        <!-- 
+            O segredo de uma grelha moderna é o "Staggering" (escalonamento).
+            Cada cartão adiciona +100ms de delay em relação ao anterior, criando o efeito "onça" ou dominó a varrer o ecrã.
+        -->
+        <div class="features-grid">
+            <!-- Funcionalidade 1 -->
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">🍳</div>
+                <h3>Cozinha Caseira Tradicional</h3>
+                <p>Receitas de sempre, feitas com carinho todos os dias. Da sopa ao prato, ingredientes frescos e muito amor numa cozinha verdadeiramente portuguesa.</p>
+            </div>
+            
+            <!-- Funcionalidade 2 -->
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">💰</div>
+                <h3>Preços Imbatíveis</h3>
+                <p>Diárias a partir de 5€. Acreditamos que uma boa refeição não tem de custar uma fortuna — qualidade e acessibilidade andam de mãos dadas.</p>
+            </div>
+            
+            <!-- Funcionalidade 3 -->
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">📶</div>
+                <h3>Wi-Fi Grátis</h3>
+                <p>Trabalhe ou relaxe enquanto come. Internet estável e gratuita para todos os nossos clientes, sem complicações.</p>
+            </div>
+            
+            <!-- Funcionalidade 4 -->
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon">☀️</div>
+                <h3>Espaço Luminoso</h3>
+                <p>Um ambiente agradável e acolhedor, cheio de luz natural — o sítio perfeito para uma pausa reconfortante no meio do dia.</p>
+            </div>
+            
+            <!-- Funcionalidade 5 -->
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-icon">🔄</div>
+                <h3>Ementa Diária Variada</h3>
+                <p>Nunca come o mesmo prato duas vezes. Ementa nova todos os dias da semana com opções de carne, peixe e vegetais.</p>
+            </div>
+            
+            <!-- Funcionalidade 6 -->
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="feature-icon">👥</div>
+                <h3>Para Todos</h3>
+                <p>Famílias, trabalhadores, estudantes — toda a gente é bem-vinda. Um ambiente descontraído onde nos tratamos pelo nome.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+}
+
+.feature-card {
+    background: var(--white);
+    border: 1px solid rgba(12,50,25,.07);
+    border-radius: 20px;
+    padding: 2.2rem 1.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+    /* Como incluímos AOS, removemos o "animation: fadeUp" local para nao causar conflitos */
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+}
+
+.feature-card h3 {
+    font-size: 1.2rem;
+    color: var(--neutral-900);
+    margin-bottom: .6rem;
+    transition: color .3s var(--ease);
+}
+
+.feature-card:hover h3 {
+    color: var(--green-600);
+}
+
+.feature-card p {
+    font-size: .92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+@media (max-width: 1100px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .features-grid { grid-template-columns: 1fr; }
+}
+
+.sobre-section {
+    position: relative;
+    background-image: linear-gradient(rgba(15, 17, 16, 0.85), rgba(15, 17, 16, 0.90)), url('/fundo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.container-relative {
+    position: relative;
+    z-index: 2;
+}
+
+/* Invert heading text to white because background is now dark */
+.sobre-section :global(.section-header h2) {
+    color: #ffffff;
+}
+
+.sobre-section :global(.section-desc) {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+</style>

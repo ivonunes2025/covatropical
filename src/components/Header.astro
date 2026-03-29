@@ -1,0 +1,304 @@
+---
+
+---
+
+<header class="site-header" id="site-header">
+    <nav class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="logo-icon">🌴</span>
+            <span class="logo-text">Cova <em>Tropical</em></span>
+        </a>
+
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#sobre" class="nav-link">O Restaurante</a></li>
+            <li><a href="#menu" class="nav-link">Ementas</a></li>
+            <li><a href="#info" class="nav-link">Informações</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="tel:255311063" class="nav-cta">
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><path
+                        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.22 1.16 2 2 0 012.2 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"
+                    ></path></svg
+                >
+                <span class="cta-text">255 311 063</span>
+            </a>
+        </div>
+
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+</header>
+
+<script>
+    const header = document.getElementById("site-header");
+
+    function handleScroll() {
+        if (window.scrollY > 20) {
+            header?.classList.add("scrolled");
+        } else {
+            header?.classList.remove("scrolled");
+        }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    const hamburger = document.getElementById("nav-hamburger");
+    const navLinks = document.getElementById("nav-links");
+
+    if (hamburger && navLinks) {
+        hamburger.addEventListener("click", function () {
+            const isOpen = navLinks.classList.toggle("open");
+            hamburger.classList.toggle("open", isOpen);
+            hamburger.setAttribute("aria-expanded", isOpen.toString());
+        });
+
+        navLinks.querySelectorAll(".nav-link").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("open");
+                hamburger.classList.remove("open");
+                hamburger.setAttribute("aria-expanded", "false");
+            });
+        });
+    }
+
+    document.addEventListener("click", function (e) {
+        if (header && !header.contains(e.target as Node)) {
+            if (navLinks) navLinks.classList.remove("open");
+            if (hamburger) {
+                hamburger.classList.remove("open");
+                hamburger.setAttribute("aria-expanded", "false");
+            }
+        }
+    });
+
+    // Smooth scroll apenas para links âncora internos (#section)
+    // Não interfere com links de navegação para outras páginas
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (this: HTMLAnchorElement, e) {
+            const targetSelector = this.getAttribute("href");
+            if (!targetSelector || targetSelector === "#") return;
+
+            const target = document.querySelector(targetSelector);
+            if (!target) return;
+
+            e.preventDefault();
+
+            const headerHeight = header ? header.offsetHeight : 70;
+            const targetTop =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                headerHeight;
+
+            window.scrollTo({ top: targetTop, behavior: "smooth" });
+        });
+    });
+</script>
+
+<style>
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        background: var(--neutral-900);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition:
+            background 0.3s var(--ease),
+            box-shadow 0.3s var(--ease);
+    }
+
+    .site-header.scrolled {
+        background: var(--neutral-900);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 5%;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    /* Logo */
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        flex-shrink: 0;
+    }
+
+    .logo-icon {
+        font-size: 1.4rem;
+    }
+
+    .logo-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -0.01em;
+    }
+
+    .logo-text em {
+        font-style: italic;
+        color: inherit;
+    }
+    .logo-text em::after {
+        content: ".";
+        color: var(--amber);
+        margin-left: 2px;
+    }
+
+    /* Nav links */
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        list-style: none;
+    }
+
+    .nav-link {
+        position: relative;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        border-radius: 8px;
+        transition:
+            color 0.3s var(--ease),
+            background 0.3s var(--ease);
+    }
+
+    .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0.3rem;
+        left: 1rem;
+        right: 1rem;
+        height: 2px;
+        background: var(--amber);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s var(--ease);
+    }
+
+    .nav-link:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-link:hover::after {
+        transform: scaleX(1);
+    }
+
+    /* CTA button nav */
+    .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #fff;
+        color: var(--neutral-900);
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.6rem 1.4rem;
+        border-radius: 50px;
+        border: 1px solid #fff;
+        transition: all 0.3s var(--ease);
+        flex-shrink: 0;
+    }
+
+    .nav-cta:hover {
+        background: transparent;
+        color: #fff;
+        border-color: var(--amber);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(139, 0, 33, 0.2);
+    }
+
+    /* Hamburger */
+    .nav-hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .nav-hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+        transition:
+            transform 0.3s var(--ease),
+            opacity 0.3s var(--ease);
+    }
+
+    .nav-hamburger.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+    .nav-hamburger.open span:nth-child(2) {
+        opacity: 0;
+    }
+    .nav-hamburger.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+        /* Nav mobile */
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--neutral-900);
+            flex-direction: column;
+            gap: 0;
+            padding: 1rem 0 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links.open {
+            display: flex;
+        }
+
+        .nav-links li {
+            width: 100%;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.85rem 5%;
+            border-radius: 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-hamburger {
+            display: flex;
+        }
+
+        .nav-cta {
+            font-size: 0.82rem;
+            padding: 0.55rem 1.1rem;
+        }
+    }
+</style>

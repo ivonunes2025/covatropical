@@ -1,0 +1,150 @@
+---
+import '../styles/global.css';
+import Preloader from '../components/Preloader.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+	showPreloader?: boolean;
+	ogImage?: string;
+	canonicalPath?: string;
+}
+
+const { 
+	title = "Restaurante Cova Tropical — Felgueiras",
+	description = "A sua paragem obrigatória no centro de Felgueiras. Gastronomia tradicional cuidada, ambiente acolhedor e a tradição à sua mesa desde 1990.",
+	showPreloader = false,
+	ogImage = "https://covatropical.pt/chefe.jpg",
+	canonicalPath = ""
+} = Astro.props;
+
+const canonicalURL = `https://covatropical.pt${canonicalPath || Astro.url.pathname}`;
+---
+
+<!doctype html>
+<html lang="pt-PT">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		
+		<!-- 🌐 1. Technical SEO Base -->
+		<meta name="description" content={description} />
+		<meta name="keywords" content="restaurante felgueiras, almoçar felgueiras, tasca, comida caseira felgueiras, pratos do dia, cova tropical" />
+		<meta name="robots" content="index, follow" />
+		<meta name="author" content="Cova Tropical" />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- 🚀 2. Open Graph (Facebook, WhatsApp, LinkedIn) -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="pt_PT" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:site_name" content="Restaurante Cova Tropical" />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={title} />
+
+		<!-- 🐦 3. Twitter / X Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		
+		<!-- 📍 4. Google Rich Snippets / JSON-LD expandido com horários -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Restaurant",
+			"name": "Restaurante Cova Tropical",
+			"image": "https://covatropical.pt/chefe.jpg",
+			"description": "A sua paragem obrigatória no centro de Felgueiras. Especialistas em comida tradicional portuguesa.",
+			"url": "https://covatropical.pt/",
+			"telephone": "+351255311063",
+			"servesCuisine": "Gastronomia Tradicional Portuguesa",
+			"priceRange": "€€",
+			"hasMenu": "https://covatropical.pt/#menu",
+			"currenciesAccepted": "EUR",
+			"paymentAccepted": "Cash, Credit Card",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "R. A. Garibaldi 155, Edifício Palmeira",
+				"addressLocality": "Felgueiras",
+				"postalCode": "4610-224",
+				"addressCountry": "PT"
+			},
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "41.3631",
+				"longitude": "-8.2037"
+			},
+			"openingHoursSpecification": [
+				{
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+					"opens": "11:30",
+					"closes": "15:00"
+				},
+				{
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": "Saturday",
+					"opens": "11:30",
+					"closes": "15:00"
+				}
+			]
+		}
+		</script>
+		
+		<!-- ⭐ LCP Preload para maximizar performance -->
+		<link rel="preload" as="image" href="/chefe.jpg" />
+
+		<!-- Fonte Google -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+		<!-- AOS (Animate on Scroll) CSS - Core das animações -->
+		<link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+		
+	</head>
+	<body class={showPreloader ? '' : 'page-fade-in'}>
+		{showPreloader && <Preloader />}
+		<!-- Aqui entra o conteúdo das páginas Astro -->
+		<slot />
+
+		<!-- AOS (Animate on Scroll) - Importação do Script -->
+		<script src="https://unpkg.com/aos@next/dist/aos.js" is:inline></script>
+		
+		<!-- Inicialização das Animações -->
+		<script is:inline>
+			document.addEventListener("DOMContentLoaded", function() {
+				// Configuramos as animações de forma cuidada
+				AOS.init({
+					duration: 900,
+					easing: 'ease-out-cubic',
+					once: true,
+					offset: 50
+				});
+			});
+
+			// Animação de saída ao navegar para outra página
+			document.addEventListener('click', function(e) {
+				const link = e.target.closest('a[href]');
+				if (!link) return;
+
+				const href = link.getAttribute('href');
+				// Apenas links de navegação real (não âncoras, não externos, não tel:)
+				if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http') || link.target === '_blank') return;
+
+				e.preventDefault();
+				sessionStorage.setItem('internal_nav', '1');
+				document.body.style.transition = 'opacity 0.3s ease';
+				document.body.style.opacity = '0';
+				setTimeout(function() {
+					window.location.href = href;
+				}, 300);
+			});
+		</script>
+	</body>
+</html>

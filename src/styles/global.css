@@ -1,0 +1,184 @@
+/* ═══════════════════════════════════════════════════════════════
+   RESTAURANTE COVA TROPICAL — styles.css
+   Paleta: Verde escuro profundo + Laranja/âmbar quente
+   Fonte: Cormorant Garamond (display) + Outfit (body)
+═══════════════════════════════════════════════════════════════ */
+
+/* ──────────────────── VARIÁVEIS ──────────────────── */
+:root {
+    /* Neutros Absolutos */
+    --neutral-900: #111111;
+    --neutral-800: #1c1c1c;
+    --neutral-700: #2d2d2d;
+    --neutral-200: #e8e8e8;
+    --neutral-100: #f4f4f4;
+    --neutral-50:  #fafafa;
+
+    /* Verdes (Detalhes) */
+    --green-800: #0f3d23;
+    --green-600: #175e35;
+    --green-400: #20864b;
+    --green-100: #dcf2e3;
+
+    /* Bordô (Detalhes) */
+    --amber:        #8b0021; /* Bordô Principal */
+    --amber-light:  #b3002b;
+    --amber-muted:  #fdf2f4;
+    --amber-border: #d46c82;
+
+    /* Base Neutra */
+    --cream:      #fafafa; /* Removido o tom quente/fdfbfb anterior */
+    --white:      #ffffff;
+    --text:       #1a1a1a;
+    --text-mid:   #4a4a4a;
+    --text-muted: #737373;
+
+    /* Sombras */
+    --shadow-sm:  0 2px 12px rgba(5,26,14,.08);
+    --shadow-md:  0 8px 32px rgba(5,26,14,.12);
+    --shadow-lg:  0 20px 60px rgba(5,26,14,.16);
+
+    /* Transição global */
+    --ease: cubic-bezier(.4,0,.2,1);
+}
+
+
+/* ──────────────────── RESET & BASE ──────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+/* Fade-in suave para páginas sem preloader */
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.page-fade-in {
+    animation: pageFadeIn 0.4s ease-out both;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.15;
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ──────────────────── LAYOUT ──────────────────── */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+.section {
+    padding: 7rem 0;
+}
+
+.section--light {
+    background: var(--cream);
+}
+
+/* ── CTA Button (global) ── */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    background: var(--neutral-900);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: .9rem 2rem;
+    border-radius: 50px;
+    border: 1px solid var(--neutral-900);
+    transition: all .3s var(--ease);
+}
+
+.btn-primary:hover {
+    background: #000;
+    transform: translateY(-3px);
+    border-color: var(--green-600); /* Toque de verde subtil */
+    box-shadow: 0 12px 32px rgba(23, 94, 53, 0.25); /* Sombra verde esbatida */
+}
+
+.btn-primary--sm {
+    font-size: .9rem;
+    padding: .65rem 1.5rem;
+}
+
+/* ──────────────────── SECTION HEADER ──────────────────── */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: .8rem;
+}
+
+.section-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-600); /* Ponto verde supersubtil exclusivo */
+}
+
+.section-tag--dark {
+    color: rgba(255,255,255,.5);
+}
+
+.section-tag--dark::before {
+    background: var(--amber);
+}
+
+.section-header h2 {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    color: var(--text);
+    letter-spacing: -.02em;
+}
+
+.section-header h2 em {
+    font-style: italic;
+    color: inherit;
+    position: relative;
+}
+
+.section-header h2 em::after {
+    content: '.';
+    color: var(--green-600);
+}
+
+.section-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: .8rem auto 0;
+}
+
+/* ──────────────────── ANIMATIONS ──────────────────── */
+/* As animações de scroll e entrada são agora responsabilidade exclusiva da Livraria AOS (Animate on Scroll) */
+
+@media (max-width: 768px) {
+    .section { padding: 5rem 0; }
+    .section-header h2 { font-size: 2rem; }
+}

@@ -1,0 +1,122 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Termos e Condições - Cova Tropical">
+    <Navbar />
+
+    <main class="legal-page section section--light">
+        <div class="container legal-container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag section-tag--dark">Legal</span>
+                <h2>Termos e <em>Condições</em></h2>
+            </div>
+
+            <div class="legal-content" data-aos="fade-up" data-aos-delay="100">
+                <p>
+                    <strong>Última atualização:</strong>
+                    {new Date().toLocaleDateString("pt-PT")}
+                </p>
+
+                <h3>1. Aceitação dos Termos</h3>
+                <p>
+                    Ao aceder e utilizar o website do Restaurante Cova Tropical,
+                    o utilizador concorda em cumprir e ficar vinculado aos
+                    presentes Termos e Condições de utilização.
+                </p>
+
+                <h3>2. Uso do Website e Informação</h3>
+                <p>
+                    Este website destina-se a fornecer informações sobre o nosso
+                    estabelecimento, incluindo ementas, localização e horários.
+                    Todo o conteúdo é meramente informativo. Reservamo-nos o
+                    direito de atualizar, alterar ou remover informações do site
+                    a qualquer momento sem aviso prévio.
+                </p>
+
+                <h3>3. Ementas e Preços</h3>
+                <p>
+                    As ementas diárias e os preços apresentados no website
+                    (incluindo o preço médio divulgado) são indicativos e estão <strong
+                        >sujeitos a alterações ou ruturas de stock</strong
+                    > sem aviso prévio. A confirmação de disponibilidade de pratos
+                    e valores finais deve ser sempre feita diretamente no estabelecimento.
+                </p>
+
+                <h3>4. Direitos de Propriedade Intelectual</h3>
+                <p>
+                    O design, textos, logótipos e imagens presentes neste
+                    website são propriedade exclusiva do Restaurante Cova
+                    Tropical ou dos seus respetivos licenciadores, estando
+                    protegidos pelas leis de propriedade intelectual aplicáveis.
+                    É proibida a sua cópia ou reprodução sem autorização prévia.
+                </p>
+
+                <h3>5. Isenção de Responsabilidade</h3>
+                <p>
+                    Embora façamos todos os esforços para manter a informação
+                    exata e atualizada, não garantimos que o website estará
+                    sempre livre de erros ou interrupções. Não nos
+                    responsabilizamos por perdas ou danos que possam resultar do
+                    uso das informações aqui contidas.
+                </p>
+
+                <h3>6. Alterações aos Termos</h3>
+                <p>
+                    Podemos rever estes Termos e Condições a qualquer momento.
+                    Ao continuar a utilizar o site, concorda com a versão mais
+                    atualizada dos mesmos.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+    .legal-page {
+        padding-top: 120px;
+        padding-bottom: 100px;
+        min-height: calc(100vh - 200px);
+    }
+
+    .legal-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .legal-content {
+        background: var(--white);
+        padding: 3rem;
+        border-radius: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: var(--shadow-sm);
+        color: var(--text-mid);
+        line-height: 1.8;
+    }
+
+    .legal-content h3 {
+        font-family: "Outfit", sans-serif;
+        color: var(--neutral-900);
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .legal-content p {
+        margin-bottom: 1.2rem;
+    }
+
+    .legal-content strong {
+        color: var(--neutral-900);
+    }
+
+    @media (max-width: 768px) {
+        .legal-content {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
