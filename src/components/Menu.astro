@@ -10,7 +10,7 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
         <div class="section-header section-header--dark" data-aos="fade-down">
             <span class="section-tag section-tag--dark">A Nossa Ementa Diária</span>
             <h2 style="color:#fff">Tudo feito no dia,<br><em>com ingredientes frescos</em></h2>
-            <p class="section-desc" style="color:rgba(255,255,255,.6)">Escolha o dia e veja os 5 pratos disponíveis.</p>
+            <p class="section-desc" style="color:rgba(255,255,255,.6)">Escolha o dia e veja os pratos disponíveis.</p>
         </div>
 
         <!-- Abas dos Dias: Surgem todas juntas com um delay após o título -->
@@ -25,41 +25,32 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 
         {DAY_IDS.map((dayId: string) => (
             <div id={`panel-${dayId}`} class="day-panel" role="tabpanel">
-                <p class="day-subtitle">
-                    {dayId === 'segunda' && "Segunda-feira — Arrancar a semana com energia"}
-                    {dayId === 'terca' && "Terça-feira — Sabores do mar e da terra"}
-                    {dayId === 'quarta' && "Quarta-feira — A meio da semana a saber bem"}
-                    {dayId === 'quinta' && "Quinta-feira — Tradição no prato"}
-                    {dayId === 'sexta' && "Sexta-feira — Para entrar no fim de semana bem disposto"}
-                    {dayId === 'sabado' && "Sábado — O dia mais especial da semana"}
-                </p>
-                
-                <div class="carousel-container">
-                    <button class="carousel-nav carousel-nav--prev" aria-label="Anterior">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-                    </button>
+                <div class="menu-board">
+                    <h3 class="menu-board-welcome">Bem-vindo à Cova Tropical</h3>
                     
-                    <div class="dishes-carousel">
-                        {menuData.filter(dish => dish.day === dayId).map((dish) => (
-                            <div class="carousel-item">
-                                <a href={`/prato/${dish.id}`} class="dish-card">
-                                    <div class="dish-img">
-                                        <img src={dish.image} alt={dish.name} loading="lazy" />
-                                    </div>
-                                    <div class="dish-body">
-                                        <span class={`dish-tag tag-${dish.category.toLowerCase()}`}>{dish.category}</span>
-                                        <h4>{dish.name}</h4>
-                                        <p>{dish.description}</p>
-                                        <strong class="dish-price">{dish.price}</strong>
-                                    </div>
-                                </a>
-                            </div>
-                        ))}
+                    <div class="menu-board-body">
+                        <h4 class="day-title-left">
+                            Menu do dia de {dayId === 'segunda' ? 'Segunda-feira' : dayId === 'terca' ? 'Terça-feira' : dayId === 'quarta' ? 'Quarta-feira' : dayId === 'quinta' ? 'Quinta-feira' : dayId === 'sexta' ? 'Sexta-feira' : 'Sábado'}
+                        </h4>
+                        
+                        <ul class="dish-list-left">
+                            {menuData.filter(dish => dish.day === dayId).map((dish) => (
+                                <li>{dish.name}</li>
+                            ))}
+                        </ul>
+                        
+                        <p class="other-dishes-center">Entre outros pratos</p>
                     </div>
 
-                    <button class="carousel-nav carousel-nav--next" aria-label="Próximo">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                    </button>
+                    <div class="menu-board-footer">
+                        <strong>Nota:</strong> Todos os dias ao jantar, servimos o nosso especial <em>Bife à Cova</em> (opções de lombo, vitela, frango ou peru).<br>
+                        Preço médio: 5€ a 10€ por pessoa.
+                    </div>
+                    
+                    <div class="menu-board-concept">
+                        Mais do que um restaurante, é onde Felgueiras almoça.<br>
+                        <strong>O conceito é de self-service e take-away.</strong>
+                    </div>
                 </div>
             </div>
         ))}
@@ -68,73 +59,57 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 </section>
 
 <script>
-    const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+    document.addEventListener('DOMContentLoaded', () => {
+        const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 
-    function switchDay(dayId: string) {
-        DAY_IDS.forEach(id => {
-            const panel = document.getElementById('panel-' + id);
-            if (panel) panel.classList.remove('active');
-        });
+        function switchDay(dayId) {
+            DAY_IDS.forEach(id => {
+                const panel = document.getElementById('panel-' + id);
+                if (panel) panel.classList.remove('active');
+            });
+
+            document.querySelectorAll('.day-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            const targetPanel = document.getElementById('panel-' + dayId);
+            const targetTab   = document.querySelector('.day-tab[data-day="' + dayId + '"]');
+
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                const carousel = targetPanel.querySelector('.dishes-carousel');
+                if (carousel) carousel.scrollLeft = 0;
+            }
+            if (targetTab) targetTab.classList.add('active');
+        }
+
+
 
         document.querySelectorAll('.day-tab').forEach(tab => {
-            tab.classList.remove('active');
+            tab.addEventListener('click', function () {
+                const day = this.getAttribute('data-day');
+                if (day) switchDay(day);
+            });
         });
 
-        const targetPanel = document.getElementById('panel-' + dayId);
-        const targetTab   = document.querySelector('.day-tab[data-day="' + dayId + '"]');
+        function setTodayTab() {
+            const dayMap = {
+                1: 'segunda',
+                2: 'terca',
+                3: 'quarta',
+                4: 'quinta',
+                5: 'sexta',
+                6: 'sabado'
+            };
 
-        if (targetPanel) {
-            targetPanel.classList.add('active');
-            // Reset carousel scroll position when changing days
-            const carousel = targetPanel.querySelector('.dishes-carousel');
-            if (carousel) carousel.scrollLeft = 0;
+            const todayIndex = new Date().getDay();
+            const todayId    = dayMap[todayIndex] || 'segunda';
+
+            switchDay(todayId);
         }
-        if (targetTab)   targetTab.classList.add('active');
-    }
 
-    // Carousel Navigation
-    document.querySelectorAll('.carousel-container').forEach(container => {
-        const carousel = container.querySelector('.dishes-carousel') as HTMLElement;
-        const prevBtn = container.querySelector('.carousel-nav--prev');
-        const nextBtn = container.querySelector('.carousel-nav--next');
-
-        if (!carousel || !prevBtn || !nextBtn) return;
-
-        const scrollAmount = 240; // Ajustado para a nova largura de 5 itens + gap
-
-        prevBtn.addEventListener('click', () => {
-            carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-
-        nextBtn.addEventListener('click', () => {
-            carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
+        setTodayTab();
     });
-
-    document.querySelectorAll('.day-tab').forEach(tab => {
-        tab.addEventListener('click', function (this: HTMLElement) {
-            const day = this.getAttribute('data-day');
-            if (day) switchDay(day);
-        });
-    });
-
-    function setTodayTab() {
-        const dayMap: Record<number, string> = {
-            1: 'segunda',
-            2: 'terca',
-            3: 'quarta',
-            4: 'quinta',
-            5: 'sexta',
-            6: 'sabado'
-        };
-
-        const todayIndex = new Date().getDay();
-        const todayId    = dayMap[todayIndex] || 'segunda';
-
-        switchDay(todayId);
-    }
-
-    setTodayTab();
 </script>
 
 <style>
@@ -207,86 +182,15 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 .day-panel { display: none; }
 .day-panel.active { display: block; }
 
-.day-subtitle {
-    text-align: center;
-    color: var(--text-muted);
-    font-style: italic;
-    font-size: .9rem;
-    margin-bottom: 2.5rem;
-    letter-spacing: .02em;
-}
-
-.carousel-container {
-    position: relative;
-    max-width: 1200px;
+.menu-board {
+    background: #fff;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 4rem;
-}
-
-.dishes-carousel {
-    display: flex;
-    gap: 1.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
-    padding: 1.5rem 0.5rem 3rem;
-}
-
-.dishes-carousel::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-}
-
-.carousel-item {
-    flex: 0 0 calc(20% - 1.2rem);
-    scroll-snap-align: start;
-    min-width: 220px;
-}
-
-.carousel-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--white);
-    border: 1px solid var(--neutral-200);
-    color: var(--neutral-900);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s var(--ease);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.carousel-nav:hover {
-    background: var(--neutral-900);
-    color: var(--white);
-    border-color: var(--neutral-900);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-
-.carousel-nav--prev { left: 0; }
-.carousel-nav--next { right: 0; }
-
-.dish-card {
-    height: 100%;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    background: var(--white);
-    border-radius: 18px;
-    overflow: hidden;
-    position: relative; /* Garantir que o link está no topo */
-    z-index: 1;
-    cursor: pointer;
-    box-shadow: 0 8px 28px rgba(0,0,0,.18);
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-    /* Animacao local exclusiva para lidar com tabs on-click e não scroll */
+    padding: 3rem 4rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    text-align: center;
+    border-top: 8px solid var(--green-600);
     animation: menuFadeUp .4s var(--ease) both;
 }
 
@@ -295,92 +199,96 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
     to   { opacity: 1; transform: translateY(0); }
 }
 
-.dish-card:nth-child(1) { animation-delay: .04s; }
-.dish-card:nth-child(2) { animation-delay: .08s; }
-.dish-card:nth-child(3) { animation-delay: .12s; }
-.dish-card:nth-child(4) { animation-delay: .16s; }
-.dish-card:nth-child(5) { animation-delay: .20s; }
-
-.dish-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 22px 52px rgba(0,0,0,.28);
-}
-
-.dish-card--highlight {
-    border: 2px solid var(--neutral-900);
-}
-
-.dish-img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    display: block;
-}
-
-.dish-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s var(--ease);
-}
-
-.dish-card:hover .dish-img img {
-    transform: scale(1.06);
-}
-
-/* Removidas as classes de cor por emoji - substituídas por fotos reais */
-
-.dish-body {
-    padding: 1rem 1rem 1.2rem;
-}
-
-.dish-tag {
-    display: inline-block;
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    padding: .2rem .6rem;
-    border-radius: 50px;
-    margin-bottom: .5rem;
-}
-
-.tag-sopa     { background: var(--neutral-100); color: var(--text-mid); }
-.tag-carne    { background: var(--neutral-100); color: var(--text-mid); }
-.tag-peixe    { background: var(--neutral-100); color: var(--text-mid); }
-.tag-vegetal  { background: var(--neutral-100); color: var(--text-mid); }
-.tag-especial { background: var(--neutral-100); color: var(--text-mid); }
-
-.dish-body h4 {
-    font-size: .95rem;
-    color: var(--text);
-    margin-bottom: .35rem;
-    line-height: 1.3;
-}
-
-.dish-body p {
-    font-size: .78rem;
-    color: var(--text-muted);
-    line-height: 1.55;
-    margin-bottom: .8rem;
-}
-
-.dish-price {
-    display: block;
-    font-size: 1.05rem;
-    font-weight: 800;
+.menu-board-welcome {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
     color: var(--neutral-900);
+    margin-bottom: 2rem;
+    font-weight: 700;
 }
 
-@media (max-width: 1024px) {
-    .carousel-container { padding: 0 1rem; }
-    .carousel-nav { display: none; } /* On mobile/tablet use touch scroll */
-    .carousel-item { flex: 0 0 75%; min-width: 240px; }
+.menu-board-body {
+    margin-bottom: 2rem;
 }
 
-@media (max-width: 480px) {
-    .dishes-carousel { gap: 1rem; padding-bottom: 2rem; }
-    .carousel-item { flex: 0 0 85%; }
+.day-title-left {
+    text-align: left;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--green-600);
+    margin-bottom: 1.5rem;
+    text-transform: capitalize;
+    border-bottom: 2px solid var(--neutral-100);
+    padding-bottom: 0.5rem;
+}
+
+.dish-list-left {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem 0;
+}
+
+.dish-list-left li {
+    font-size: 1.15rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-weight: 500;
+}
+
+.dish-list-left li::before {
+    content: '•';
+    color: var(--green-600);
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    top: -2px;
+}
+
+.other-dishes-center {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-mid);
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    font-weight: 500;
+}
+
+.menu-board-footer {
+    background: var(--neutral-50);
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+    border: 1px dashed var(--neutral-200);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.menu-board-concept {
+    font-size: 1.1rem;
+    color: var(--neutral-900);
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--neutral-100);
+}
+
+@media (max-width: 768px) {
+    .menu-board {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+    .menu-board-welcome {
+        font-size: 1.8rem;
+    }
+    .dish-list-left li {
+        font-size: 1.05rem;
+    }
 }
 </style>

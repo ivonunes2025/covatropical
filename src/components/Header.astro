@@ -4,10 +4,8 @@
 
 <header class="site-header" id="site-header">
     <nav class="nav-container">
-        <a href="/" class="nav-logo">
-            <span class="logo-icon">🌴</span>
-            <span class="logo-text">Cova <em>Tropical</em></span>
-        </a>
+        <a href="/" class="nav-logo" aria-label="Home">
+            <img src="/logo.png" alt="Restaurante Cova Tropical" class="logo-img" />        </a>
 
         <ul class="nav-links" id="nav-links">
             <li><a href="#sobre" class="nav-link">O Restaurante</a></li>
@@ -142,26 +140,17 @@
         flex-shrink: 0;
     }
 
-    .logo-icon {
-        font-size: 1.4rem;
+    .logo-img {
+        height: 54px;
+        width: auto;
+        max-width: 260px;
+        display: block;
+        object-fit: contain;
+        transition: transform 0.3s var(--ease);
     }
 
-    .logo-text {
-        font-family: "Cormorant Garamond", serif;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #fff;
-        letter-spacing: -0.01em;
-    }
-
-    .logo-text em {
-        font-style: italic;
-        color: inherit;
-    }
-    .logo-text em::after {
-        content: ".";
-        color: var(--amber);
-        margin-left: 2px;
+    .nav-logo:hover .logo-img {
+        transform: translateY(-2px);
     }
 
     /* Nav links */
@@ -296,9 +285,28 @@
             display: flex;
         }
 
+        .nav-container {
+            gap: 1rem;
+        }
+
+        .nav-logo {
+            flex-grow: 1;
+        }
+
+        .logo-img {
+            height: 44px;
+        }
+
+        .cta-text {
+            display: none;
+        }
+
         .nav-cta {
-            font-size: 0.82rem;
-            padding: 0.55rem 1.1rem;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+            border-radius: 50%;
         }
     }
 </style>

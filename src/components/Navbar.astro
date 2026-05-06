@@ -3,20 +3,19 @@
 
 <header class="site-header" id="site-header">
     <nav class="nav-container">
-        <a href="#" class="nav-logo">
-            <span class="logo-icon">🌴</span>
-            <span class="logo-text">Cova <em>Tropical</em></span>
+        <a href="/" class="nav-logo" aria-label="Home">
+            <img src="/logo.png" alt="Restaurante Cova Tropical" class="logo-img" />
         </a>
 
         <ul class="nav-links" id="nav-links">
-            <li><a href="#sobre" class="nav-link">O Restaurante</a></li>
-            <li><a href="#menu" class="nav-link">Ementas</a></li>
-            <li><a href="#info" class="nav-link">Informações</a></li>
+            <li><a href="/#sobre" class="nav-link">O Restaurante</a></li>
+            <li><a href="/#menu" class="nav-link">Ementas</a></li>
+            <li><a href="/#info" class="nav-link">Informações</a></li>
         </ul>
 
         <a href="tel:255311063" class="nav-cta">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.22 1.16 2 2 0 012.2 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
-            255 311 063
+            <span class="cta-text">255 311 063</span>
         </a>
 
         <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
@@ -69,12 +68,15 @@
     });
 
     // Smooth scroll for nav links (fallback for unsupported scroll-behavior in css)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
         anchor.addEventListener('click', function (this: HTMLAnchorElement, e) {
-            const targetSelector = this.getAttribute('href');
+            // Se não estivermos na homepage, deixa a navegação normal acontecer (vai para a homepage e depois faz scroll)
+            if (window.location.pathname !== '/' && window.location.pathname !== '') return;
+
+            const targetSelector = this.getAttribute('href')?.substring(1); // Remove the '/'
             
-            // Tratamento especial para o logo que aponta para "#" -> ir para o topo
-            if (targetSelector === '#') {
+            // Tratamento especial para o logo que aponta para "/" -> ir para o topo se já estivermos na homepage
+            if (targetSelector === '') {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
@@ -128,25 +130,18 @@
     flex-shrink: 0;
 }
 
-.logo-icon { font-size: 1.4rem; }
+    .logo-img {
+        height: 54px;
+        width: auto;
+        max-width: 260px;
+        display: block;
+        object-fit: contain;
+        transition: transform 0.3s var(--ease);
+    }
 
-.logo-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -.01em;
-}
-
-.logo-text em {
-    font-style: italic;
-    color: inherit;
-}
-.logo-text em::after {
-    content: '.';
-    color: var(--amber);
-    margin-left: 2px;
-}
+    .nav-logo:hover .logo-img {
+        transform: translateY(-2px);
+    }
 
 /* Nav links */
 .nav-links {
@@ -264,6 +259,28 @@
 
     .nav-hamburger { display: flex; }
 
-    .nav-cta { font-size: .82rem; padding: .55rem 1.1rem; }
+    .nav-container {
+        gap: 1rem;
+    }
+
+    .nav-logo {
+        flex-grow: 1;
+    }
+
+    .logo-img {
+        height: 44px; /* Slightly smaller logo to ensure fit */
+    }
+
+    .cta-text {
+        display: none;
+    }
+
+    .nav-cta { 
+        padding: 0; 
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        border-radius: 50%;
+    }
 }
 </style>

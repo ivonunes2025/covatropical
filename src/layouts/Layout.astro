@@ -26,6 +26,7 @@ const canonicalURL = `https://covatropical.pt${canonicalPath || Astro.url.pathna
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>{title}</title>
 		
 		<!-- 🌐 1. Technical SEO Base -->
@@ -86,6 +87,12 @@ const canonicalURL = `https://covatropical.pt${canonicalPath || Astro.url.pathna
 					"dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
 					"opens": "11:30",
 					"closes": "15:00"
+				},
+				{
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+					"opens": "18:00",
+					"closes": "22:00"
 				},
 				{
 					"@type": "OpeningHoursSpecification",
