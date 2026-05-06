@@ -8,9 +8,10 @@
             <img src="/logo.png" alt="Restaurante Cova Tropical" class="logo-img" />        </a>
 
         <ul class="nav-links" id="nav-links">
-            <li><a href="#sobre" class="nav-link">O Restaurante</a></li>
-            <li><a href="#menu" class="nav-link">Ementas</a></li>
-            <li><a href="#info" class="nav-link">Informações</a></li>
+            <li><a href="/#menu" class="nav-link">Ementas</a></li>
+            <li><a href="/#sobre" class="nav-link">O Espaço</a></li>
+            <li><a href="/#info" class="nav-link">Informações</a></li>
+            <li><a href="/sobre-nos" class="nav-link">Sobre Nós</a></li>
         </ul>
 
         <div class="nav-actions">
@@ -81,12 +82,14 @@
         }
     });
 
-    // Smooth scroll apenas para links âncora internos (#section)
-    // Não interfere com links de navegação para outras páginas
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    // Smooth scroll para links âncora
+    document.querySelectorAll('a[href^="/#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (this: HTMLAnchorElement, e) {
-            const targetSelector = this.getAttribute("href");
-            if (!targetSelector || targetSelector === "#") return;
+            // Só atua se estivermos na homepage. Se não, deixa o link navegar
+            if (window.location.pathname !== '/' && window.location.pathname !== '') return;
+
+            const targetSelector = this.getAttribute("href")?.substring(1); // remove o /
+            if (!targetSelector || targetSelector === "") return;
 
             const target = document.querySelector(targetSelector);
             if (!target) return;

@@ -29,11 +29,11 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
                     <h3 class="menu-board-welcome">Bem-vindo à Cova Tropical</h3>
                     
                     <div class="menu-board-body">
-                        <h4 class="day-title-left">
+                        <h4 class="day-title-center">
                             Menu do dia de {dayId === 'segunda' ? 'Segunda-feira' : dayId === 'terca' ? 'Terça-feira' : dayId === 'quarta' ? 'Quarta-feira' : dayId === 'quinta' ? 'Quinta-feira' : dayId === 'sexta' ? 'Sexta-feira' : 'Sábado'}
                         </h4>
                         
-                        <ul class="dish-list-left">
+                        <ul class="dish-list-center">
                             {menuData.filter(dish => dish.day === dayId).map((dish) => (
                                 <li>{dish.name}</li>
                             ))}
@@ -184,7 +184,7 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 
 .menu-board {
     background: #fff;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 3rem 4rem;
     border-radius: 12px;
@@ -211,8 +211,8 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
     margin-bottom: 2rem;
 }
 
-.day-title-left {
-    text-align: left;
+.day-title-center {
+    text-align: center;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--green-600);
@@ -220,32 +220,31 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
     text-transform: capitalize;
     border-bottom: 2px solid var(--neutral-100);
     padding-bottom: 0.5rem;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.dish-list-left {
-    text-align: left;
+.dish-list-center {
+    text-align: center;
     list-style: none;
     padding: 0;
     margin: 0 0 2.5rem 0;
 }
 
-.dish-list-left li {
+.dish-list-center li {
     font-size: 1.15rem;
     color: var(--text);
     margin-bottom: 1rem;
-    padding-left: 1.5rem;
-    position: relative;
     font-weight: 500;
 }
 
-.dish-list-left li::before {
-    content: '•';
+.dish-list-center li::before {
+    content: '• ';
     color: var(--green-600);
-    position: absolute;
-    left: 0;
     font-size: 1.5rem;
     line-height: 1;
-    top: -2px;
+    vertical-align: middle;
 }
 
 .other-dishes-center {
@@ -287,7 +286,7 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
     .menu-board-welcome {
         font-size: 1.8rem;
     }
-    .dish-list-left li {
+    .dish-list-center li {
         font-size: 1.05rem;
     }
 }

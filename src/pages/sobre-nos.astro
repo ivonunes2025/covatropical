@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Sobre Nós - Restaurante Cova Tropical" showPreloader={false}>
+    <Header />
+    <main class="page-main">
+        <section class="about-page-section">
+            <div class="container">
+                <div class="about-content" data-aos="fade-up">
+                    <span class="section-tag section-tag--dark" style="margin: 0 auto 1.5rem;">A Nossa História</span>
+                    <h1 class="about-title">[Título sobre o Espaço e a História]</h1>
+                    <div class="about-desc">
+                        <p>
+                            [Esta é a descrição padrão sobre o nosso espaço. Aqui vamos contar um pouco sobre as raízes da Cova Tropical, como tudo começou, e o que nos inspira a servir a melhor comida caseira em Felgueiras todos os dias.]
+                        </p>
+                        <p>
+                            [O nosso ambiente acolhedor e a dedicação aos sabores tradicionais são o nosso foco. Assim que enviar o texto definitivo (com o título e a descrição que pretende), iremos atualizar esta página.]
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+.page-main {
+    min-height: 70vh;
+    background-color: var(--neutral-50);
+    display: flex;
+    align-items: center;
+}
+
+.about-page-section {
+    width: 100%;
+    padding: 8rem 0 6rem;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    background: #fff;
+    padding: 4rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    border-top: 6px solid var(--green-600);
+}
+
+.about-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--neutral-900);
+    margin-bottom: 2.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.about-desc {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-mid);
+    text-align: left;
+}
+
+.about-desc p {
+    margin-bottom: 1.5rem;
+}
+
+.about-desc p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        padding: 2.5rem 1.5rem;
+    }
+    
+    .about-desc {
+        font-size: 1.05rem;
+    }
+}
+</style>
