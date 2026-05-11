@@ -14,10 +14,25 @@
             <li><a href="/sobre-nos" class="nav-link">Sobre Nós</a></li>
         </ul>
 
-        <a href="tel:255311063" class="nav-cta">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.22 1.16 2 2 0 012.2 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
-            <span class="cta-text">255 311 063</span>
-        </a>
+        <div class="nav-actions">
+            <div class="audio-controls">
+                <audio id="site-audio" loop>
+                    <source src="/musica.m4a" type="audio/mp4" />
+                </audio>
+                <button id="audio-play" aria-label="Play Music" title="Ouvir Música">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button id="audio-pause" aria-label="Pause Music" title="Parar Música" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+                <input type="range" id="audio-volume" min="0" max="1" step="0.1" value="0.3" aria-label="Volume">
+            </div>
+
+            <a href="tel:255311063" class="nav-cta">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.22 1.16 2 2 0 012.2 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+                <span class="cta-text">255 311 063</span>
+            </a>
+        </div>
 
         <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
@@ -95,6 +110,49 @@
             window.scrollTo({ top: targetTop, behavior: 'smooth' });
         });
     });
+
+    // Audio Player Logic
+    const audio = document.getElementById('site-audio') as HTMLAudioElement;
+    const playBtn = document.getElementById('audio-play');
+    const pauseBtn = document.getElementById('audio-pause');
+    const volumeSlider = document.getElementById('audio-volume') as HTMLInputElement;
+
+    if (audio && playBtn && pauseBtn && volumeSlider) {
+        // Set initial volume
+        audio.volume = parseFloat(volumeSlider.value);
+
+        // Check sessionStorage to see if music was playing
+        const isPlaying = sessionStorage.getItem('musicPlaying') === 'true';
+        if (isPlaying) {
+            // Attempt to autoplay if previously playing (might be blocked by browser on first load, but works on internal nav)
+            audio.play().then(() => {
+                playBtn.style.display = 'none';
+                pauseBtn.style.display = 'flex';
+            }).catch(() => {
+                // Autoplay blocked
+                sessionStorage.setItem('musicPlaying', 'false');
+            });
+        }
+
+        playBtn.addEventListener('click', () => {
+            audio.play();
+            playBtn.style.display = 'none';
+            pauseBtn.style.display = 'flex';
+            sessionStorage.setItem('musicPlaying', 'true');
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            audio.pause();
+            pauseBtn.style.display = 'none';
+            playBtn.style.display = 'flex';
+            sessionStorage.setItem('musicPlaying', 'false');
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            const target = e.target as HTMLInputElement;
+            audio.volume = parseFloat(target.value);
+        });
+    }
 </script>
 
 <style>
@@ -184,6 +242,68 @@
     transform: scaleX(1);
 }
 
+/* Nav Actions Container */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+/* Audio Player Controls */
+.audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.05);
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.audio-controls button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.3s var(--ease), transform 0.2s;
+}
+
+.audio-controls button:hover {
+    color: var(--amber);
+    transform: scale(1.1);
+}
+
+#audio-volume {
+    width: 60px;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    outline: none;
+    margin-left: 0.2rem;
+}
+
+#audio-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--amber);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#audio-volume::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
 /* CTA button nav */
 .nav-cta {
     display: inline-flex;
@@ -197,7 +317,6 @@
     border-radius: 50px;
     border: 1px solid #fff;
     transition: all .3s var(--ease);
-    flex-shrink: 0;
 }
 
 .nav-cta:hover {
@@ -274,6 +393,18 @@
 
     .cta-text {
         display: none;
+    }
+
+    .nav-actions {
+        gap: 0.5rem;
+    }
+
+    .audio-controls {
+        padding: 0.3rem 0.5rem;
+    }
+
+    #audio-volume {
+        width: 40px; /* Smaller volume slider on mobile */
     }
 
     .nav-cta { 

@@ -55,7 +55,7 @@ const canonicalURL = `https://covatropical.pt${canonicalPath || Astro.url.pathna
 		<meta name="twitter:image" content={ogImage} />
 		
 		<!-- 📍 4. Google Rich Snippets / JSON-LD expandido com horários -->
-		<script type="application/ld+json">
+		<script type="application/ld+json" is:inline>
 		{
 			"@context": "https://schema.org",
 			"@type": "Restaurant",

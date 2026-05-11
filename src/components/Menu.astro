@@ -33,13 +33,15 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
                             Menu do dia de {dayId === 'segunda' ? 'Segunda-feira' : dayId === 'terca' ? 'Terça-feira' : dayId === 'quarta' ? 'Quarta-feira' : dayId === 'quinta' ? 'Quinta-feira' : dayId === 'sexta' ? 'Sexta-feira' : 'Sábado'}
                         </h4>
                         
-                        <ul class="dish-list-center">
-                            {menuData.filter(dish => dish.day === dayId).map((dish) => (
-                                <li>{dish.name}</li>
-                            ))}
-                        </ul>
-                        
-                        <p class="other-dishes-center">Entre outros pratos</p>
+                        <div class="menu-list-wrapper">
+                            <ul class="dish-list-center">
+                                {menuData.filter(dish => dish.day === dayId).map((dish) => (
+                                    <li>{dish.name}</li>
+                                ))}
+                            </ul>
+                            
+                            <p class="other-dishes-center">Entre outros pratos</p>
+                        </div>
                     </div>
 
                     <div class="menu-board-footer">
@@ -62,7 +64,7 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
     document.addEventListener('DOMContentLoaded', () => {
         const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 
-        function switchDay(dayId) {
+        function switchDay(dayId: string) {
             DAY_IDS.forEach(id => {
                 const panel = document.getElementById('panel-' + id);
                 if (panel) panel.classList.remove('active');
@@ -86,14 +88,14 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 
 
         document.querySelectorAll('.day-tab').forEach(tab => {
-            tab.addEventListener('click', function () {
+            tab.addEventListener('click', function (this: HTMLElement) {
                 const day = this.getAttribute('data-day');
                 if (day) switchDay(day);
             });
         });
 
         function setTodayTab() {
-            const dayMap = {
+            const dayMap: Record<number, string> = {
                 1: 'segunda',
                 2: 'terca',
                 3: 'quarta',
@@ -225,11 +227,15 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
     margin-right: auto;
 }
 
+.menu-list-wrapper {
+    display: block;
+    text-align: left;
+}
+
 .dish-list-center {
-    text-align: center;
     list-style: none;
     padding: 0;
-    margin: 0 0 2.5rem 0;
+    margin: 0 0 1.5rem 0;
 }
 
 .dish-list-center li {
@@ -248,11 +254,10 @@ const DAY_IDS = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
 }
 
 .other-dishes-center {
-    text-align: center;
     font-style: italic;
     color: var(--text-mid);
     font-size: 1.1rem;
-    margin-top: 1.5rem;
+    margin: 0;
     font-weight: 500;
 }
 
